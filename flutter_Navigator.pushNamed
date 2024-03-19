@@ -1,0 +1,76 @@
+import 'package:flutter/material.dart';
+
+// This is Run Method
+void main() => runApp(MyApp());
+
+// Widget1 MyApp
+// Widget1 MyApp
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Hello World',
+
+      theme: ThemeData(
+        // useMaterial3: false,
+        primarySwatch: Colors.blue,
+      ),
+      // A widget which will be started on application startup
+      home: MyHomePage(title: ' Flutter Demo Home Page'),
+      routes: {
+        PageTwo.page: (context) => PageTwo(),
+        // PageThree.page:(context) => PageThree()
+      },
+    );
+  }
+}
+
+// Widget 2 MyHomePage
+// Widget 2 MyHomePage
+class MyHomePage extends StatelessWidget {
+  final String title;
+  final String msg = "Hello the another page";
+  const MyHomePage({super.key, required this.title});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: Center(
+        child: FloatingActionButton(
+          onPressed: () =>
+              Navigator.pushNamed(context, PageTwo.page, arguments: msg),
+          child: Text("Page2"),
+        ),
+      ),
+    );
+  }
+}
+
+// Widget 3 PageTwo
+// Widget 3 PageTwo
+class PageTwo extends StatelessWidget {
+  static String page = "two";
+  @override
+  Widget build(BuildContext context) {
+    //Widget كود استقبال النص ، لازم يكون تحت كلمة
+    final String message = ModalRoute.of(context)!.settings.arguments as String;
+    return Scaffold(
+      appBar: AppBar(
+        // The title text which will be shown on the action bar
+        title: Text("App Bar"),
+      ),
+      body: Center(
+        child: ElevatedButton(
+          child: Text('$message'),
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+      ),
+    );
+  }
+}
